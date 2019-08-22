@@ -1,4 +1,6 @@
-import { Component} from '@angular/core';
+import { Component,OnInit} from '@angular/core';
+import { BusinessService } from './business.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +11,32 @@ import { Component} from '@angular/core';
 })
 export class AppComponent {
   todoArray=[];
+  people;
   todo;
-  //todoForm: new FormGroup()
+  myvar;
+  resumeForm:FormGroup;
 
+  constructor(private ser:BusinessService){}
+  //todoForm: new FormGroup()
+  ngOnInit(){
+    this.ser.getPeople().subscribe(res=>{
+      this.people=res;
+      this.initForm();
+      console.log(this.people);
+    })
+  }
+
+  private initForm(){
+    let firstName="";
+    let lastName="";
+
+    this.resumeForm=new FormGroup({
+      'name':new FormControl(firstName,Validators.required),
+      'imagePath':new FormControl(lastName,Validators.required)
+     
+    });
+
+  }
 
    addTodo(value){
     if(value!==""){
@@ -31,7 +56,11 @@ export class AppComponent {
   		}
   	}
   }
-
+  onClick(){
+    this.ser.getString().subscribe(res=>{
+      this.myvar=res;
+    });
+  }
   // submit Form
   todoSubmit(value:any){
      if(value!==""){
