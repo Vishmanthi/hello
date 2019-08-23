@@ -25,4 +25,9 @@ export class BusinessService {
       
       return this.http.post("http://localhost:8080/api/create",p);
     }
+
+    deletePupil(id:number){
+      console.log("http://localhost:8080/api/people/"+id);
+      return this.http.delete("http://localhost:8080/api/people/"+id);
+    }
 }

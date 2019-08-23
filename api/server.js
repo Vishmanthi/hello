@@ -59,13 +59,13 @@ const connection = mysql.createConnection({
    })
 
    app.delete("/api/people/:id",(req,res,next)=>{
+    id=req.params.id;
+    console.log(id);
+    connection.query('DELETE FROM table1 WHERE id=?', id, (err, res) => {
+      if(err) throw err;
+     
+    });
     
-     Cake.deleteOne({_id:req.params.id}).then(result=>{
-         console.log(result);
-         res.status(200).json({
-             message:'Cake deleted'
-         });
-     });
  });
   
   app.get('/people',(req,res,next)=>{

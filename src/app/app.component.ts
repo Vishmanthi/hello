@@ -34,6 +34,13 @@ export class AppComponent {
     
     
   }
+
+  deleteMem(id){
+    console.log(id);
+    this.ser.deletePupil(id).subscribe((id:number)=>{
+      console.log(id);
+    })
+  }
   
 
    addTodo(value){
