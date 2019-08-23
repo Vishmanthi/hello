@@ -1,6 +1,8 @@
 import { Component,OnInit} from '@angular/core';
 import { BusinessService } from './business.service';
+import {Pupil} from './pupil';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
 @Component({
   selector: 'app-root',
@@ -14,29 +16,25 @@ export class AppComponent {
   people;
   todo;
   myvar;
-  resumeForm:FormGroup;
+  p:Pupil;
 
   constructor(private ser:BusinessService){}
   //todoForm: new FormGroup()
   ngOnInit(){
     this.ser.getPeople().subscribe(res=>{
       this.people=res;
-      this.initForm();
+   
       console.log(this.people);
     })
   }
-
-  private initForm(){
-    let firstName="";
-    let lastName="";
-
-    this.resumeForm=new FormGroup({
-      'name':new FormControl(firstName,Validators.required),
-      'imagePath':new FormControl(lastName,Validators.required)
-     
+  register(form) {
+    this.ser.postPeople(form.value).subscribe((news: Pupil)=>{
+      console.log("Record created, ", news);
     });
-
+    
+    
   }
+  
 
    addTodo(value){
     if(value!==""){

@@ -36,6 +36,9 @@
 				<th>
 					LastName
 				</th>
+				<th>
+					Action
+				</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -46,6 +49,10 @@
 				<td>
 					{{pupil.l_name}}
 				</td>
+				<td>
+				<p><button class="btn btn-success">Update</button>
+				<button class="btn btn-danger">Delete</button></p>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -53,15 +60,15 @@
 <router-outlet></router-outlet>
 </div>
 
-<form  [formGroup]="resumeForm" *ngIf="resumeForm">
+<form  #myform="ngForm" (ngSubmit)="register(myform)">
 	<div class="form-group">
 	  <label for="firstName">First Name</label>
-	  <input type="text" class="form-control" id="firstName" formControlName="firstName" aria-describedby="emailHelp" placeholder="Enter First name">
+	  <input type="text" name="f_name" class="form-control" id="firstName" aria-describedby="emailHelp" placeholder="Enter First name" ngModel>
 	 
 	</div>
 	<div class="form-group">
 	  <label for="lastName">Last Name</label>
-	  <input type="text" class="form-control" id="lastName" placeholder="Last Name" formControlName="lastName">
+	  <input type="text" class="form-control" id="lastName" placeholder="Last Name" name="l_name" ngModel>
 	</div>
 	
 	<button type="submit" class="btn btn-primary">Submit</button>

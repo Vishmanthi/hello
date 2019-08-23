@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {map} from 'rxjs/operators';
 import { HttpClient } from '../../node_modules/@angular/common/http';
+import {Pupil} from './pupil';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,5 +17,12 @@ export class BusinessService {
   getPeople(){
       return this.http.get(this.uri+"people");
       
+    }
+
+    postPeople(p:Pupil){
+
+    
+      
+      return this.http.post("http://localhost:8080/api/create",p);
     }
 }

@@ -45,20 +45,43 @@ const connection = mysql.createConnection({
     if (err) throw err;
     console.log('Connected!');
   });
+
+  app.post("/api/create",(req,res,next)=>{
+    console.log("mnmnm");
+
+    const user = req.body;
+    console.log(user);
+    connection.query('INSERT INTO table1 SET ?', user, (err, res) => {
+      if(err) throw err;
+     
+    });
+  
+   })
+
+   app.delete("/api/people/:id",(req,res,next)=>{
+    
+     Cake.deleteOne({_id:req.params.id}).then(result=>{
+         console.log(result);
+         res.status(200).json({
+             message:'Cake deleted'
+         });
+     });
+ });
   
   app.get('/people',(req,res,next)=>{
     connection.query('SELECT * FROM table1', (err,rows) => {
         if(err) throw err;
         else{
-            res.send(rows);
+            res.json(rows);
             console.log('Data received from Db:\n');
             console.log(rows);
         }
       
         
       });
-
+    
   })
+  
 var port=process.env.PORT||8080;
 app.get('/',function(req,res){
   res.send("Hello world!");
@@ -71,3 +94,5 @@ app.listen(port,function(){
 app.get("/url", (req, res, next) => {
   res.json("jdijdosjo");
  });
+
+ 
